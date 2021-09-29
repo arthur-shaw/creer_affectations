@@ -227,7 +227,7 @@ use "`input_dir'/`sel_hholds_file_in'", clear
 
 * NB: il est possible qu'il y ait des manipulations à faire pour avoir une base
 * de la forme et du contenu souhaité
-gen vague = 4
+gen vague = 3
 
 * retenir les variables à précharger
 keep interview__id ///
