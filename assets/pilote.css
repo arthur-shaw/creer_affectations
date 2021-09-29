@@ -1,0 +1,138 @@
+/* Make font of slide content bigger */
+.remark-slide-content p, ul, ol, li {
+  font-size: 1.6rem;
+}
+
+.xlarge { font-size: 3rem; }
+.large { font-size: 150% }
+.small { font-size: 70% }
+
+/* create scrollbar for output that overflows page */
+.scroll-output {
+  height: 90%;
+  overflow-y: scroll;
+}
+
+/* Title box at top of slide */
+
+.title {
+  padding-top: 0em;
+  border-top: 110px solid #777777;
+}
+
+
+.title h1 {
+  margin-top: -85px;
+  margin-bottom: 50px;
+}
+
+.title-0 h1, .title-1 h1, .title-2 h1 {
+  color: #FFFFFF;
+}
+
+/* Text box list */
+
+.box-txt { 
+  font-size: 3rem;
+  color: white;
+}
+
+.box-0, .box-1, .box-2 {
+  display: inline;  
+}
+
+.box-0, .box-1, .box-2 {
+  margin: 0em auto;
+  overflow: hidden;
+  padding: 0.1em 0.4em;
+  font-weight: 600;
+  display: table;
+  text-align: center;
+}
+
+/* Colors */
+
+/* Variables for shared colors  */
+
+:root {
+  --section-0: #1c51b7;
+  --section-1: #0D0887;
+  --section-2: #6A00A8;
+}
+
+/* ... background for boxes and section title */
+
+.box-0, .section-title-0 {
+  background-color: var(--section-0);
+}
+
+.box-1, .section-title-1 {
+  background-color: var(--section-1);
+}
+
+.box-2, .section-title-2{
+  background-color: var(--section-2);
+}
+
+/* ....border colors for titles */
+
+.title-0 {
+  border-top-color: var(--section-0);
+}
+
+.title-1 {
+  border-top-color: var(--section-1);
+}
+
+.title-2 {
+  border-top-color: var(--section-2);
+}
+
+/* heading colors */
+
+.s1 {
+  color: var(--section-1);
+  font-weight: 900;
+}
+
+.s2 {
+  color: var(--section-2);
+  font-weight: 900;
+}
+
+/* Two-column layout */
+.left-column {
+    color: #777;
+    width: 20%;
+    height: 92%;
+    float: left;
+}
+.left-column h3:last-of-type {
+  color: #000;
+}
+.right-column {
+  width: 75%;
+  float: right;
+  padding-top: 1em;
+}
+
+/* alternate layout */
+.left-column-bg {
+  width: 75%;
+  height: 92%;
+  float: left;
+}
+
+.right-column-sm {
+  width: 25%;
+  float: right;
+  padding-top: 1em;
+}
+
+/* Stata code */
+/* 
+.scroll-output .remark-code, .scroll-output .remark-code * {
+  background-color: #000000 !important;
+  background: black !important;
+  color: #00B600
+} */

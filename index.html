@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Créer des affectations</title>
+    <meta charset="utf-8" />
+    <script src="index_files/header-attrs-2.11/header-attrs.js"></script>
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="index_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="index_files/panelset-0.2.6/panelset.js"></script>
+    <link href="index_files/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <script src="index_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="index_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="index_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\" style=\"font-size:100p\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D;font-size:25p\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144;font-size:25p\"><\/i>"})</script>
+    <link href="index_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/pilote.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+class: section-title-0, middle, center, inverse
+
+# Créer des affectations
+## Recettes pour les nouveaux et anciens ménages
+
+---
+
+class: title, title-0
+
+# Feuille de route
+
+&lt;br&gt;
+&lt;br&gt;
+.box-0.box-txt[Guide d'emploi]
+
+.box-1.box-txt[Nouveaux ménages]
+
+.box-2.box-txt[Anciens ménages]
+
+---
+
+class: section-title-0, middle, center, inverse
+
+# Guide d'emploi
+
+## (i.e. comment se servir de ces diapos)
+
+---
+
+layout: true
+
+class: title, title-0
+
+---
+
+# Copier-coller du code
+
+.left-column-bg[
+&lt;video width="1920" height="500" controls&gt;
+  &lt;source src="assets/copy_paste_code.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+]
+
+.right-column-sm[
+- Positionner le curseur sur le code
+- Cliquer sur l'icône afin de copier
+- Copier ailleurs (e.g., Stata, editeur, etc.)
+]
+
+---
+
+# Où trouver le programme modèle <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M255.03 261.65c6.25 6.25 16.38 6.25 22.63 0l11.31-11.31c6.25-6.25 6.25-16.38 0-22.63L253.25 192l35.71-35.72c6.25-6.25 6.25-16.38 0-22.63l-11.31-11.31c-6.25-6.25-16.38-6.25-22.63 0l-58.34 58.34c-6.25 6.25-6.25 16.38 0 22.63l58.35 58.34zm96.01-11.3l11.31 11.31c6.25 6.25 16.38 6.25 22.63 0l58.34-58.34c6.25-6.25 6.25-16.38 0-22.63l-58.34-58.34c-6.25-6.25-16.38-6.25-22.63 0l-11.31 11.31c-6.25 6.25-6.25 16.38 0 22.63L386.75 192l-35.71 35.72c-6.25 6.25-6.25 16.38 0 22.63zM624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"/></svg>
+
+- [Nouveaux ménages](#programme_nouveaux_menages)
+- [Anciens ménages](#programme_anciens_menages)
+
+---
+
+layout: false
+
+class: section-title-1, center, middle, inverse
+
+# Nouveaux ménages
+
+---
+
+layout: true
+class: title, title-1
+
+---
+
+# Recette 👨‍🍳
+
+1. Fixer les paramètres du projet
+1. Retenir les informations nécessaires
+1. Créer un nouvel ID de l'entretien
+1. Décider de l'affectation
+1. Valider votre travail
+1. Sauvegarder vers le format tab
+1. Zipper le fichier tab
+1. Importer le ficher sur SuSo
+
+---
+
+# Outils 🔪
+
+- `local`
+- `use`
+- `generate` / `replace`
+- `rename`
+- `keep`
+- `tempfile`
+- `save`
+- `capture`
+- `confirm`
+- `assert`
+- `outsheet`
+- `zipfile`
+
+---
+
+# Fixer les paramètres du projet <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"/></svg>
+
+.panelset[
+
+.panel[.panel-name[Dossiers]
+
+
+```stata
+
+* DOSSIERS
+local proj_dir      ""    // où trouver la "racine" du projet
+local input_dir     ""    // où trouver les fichiers d'entree. Par exemple: "`proj_dir'/entree/"
+local output_dir    ""    // où trouver les fichiers de sortie. Par example: "`proj_dir'/sortie/"
+
+```
+
+]
+
+.panel[.panel-name[Entrées]
+
+
+```stata
+
+* FICHIERS
+* entrée:
+local sel_hholds_file_in     "nom_a_determiner.dta"    // fichier des ménages tirés
+
+```
+
+]
+
+.panel[.panel-name[Sorties]
+
+
+.pull-left[
+![](assets/qnr_var_in_Designer.png)
+]
+
+.pull-right[
+
+
+```stata
+
+* sortie:
+local hhold_file_out    "menage.tab"
+    * nom du fichier = questionnaire variable
+    * afin de retrouver ce nom: 
+    * - ouvrir le questionnaire dans Designer
+    * - cliquer sur PARAMÈTRES
+    * - copier la valeur du champs `Questionnaire variable`
+
+```
+]
+
+]
+
+
+]
+
+???
+
+### Dossier
+
+- `proj_dir`. Mettre le répertoire qui est la racine du projet.
+- `input_dir`, `output_dir`. Chemin relatif à `proj_dir`
+
+### Sorties
+
+- Ouvrir le questionnaire dans Designer
+- Cliquer sur `PARAMÈTRES`
+- Prendre la valeur de `Questionnaire variable`
+- Mettre ça dans `hhold_file_out` avec une extension `.tab`
+
+---
+
+# Retenir les informations nécessaires
+
+
+```stata
+
+use "`input_dir'/`sel_hholds_file_in'", clear
+
+* NB: il est possible qu'il y ait des manipulations à faire pour avoir une base
+* de la forme et du contenu souhaité
+gen vague = 4
+
+* retenir les variables à précharger
+keep interview__id ///
+    grappe id_menage vague nom_prenom_cm localisation_menage    /// couverture
+    s00q00 s00q01 s00q02 s00q03 s00q04 s00q05 s00q06 s00q07     /// identification
+
+tempfile menages
+save "`menages'"
+```
+
+---
+
+# Créer un nouvel ID de l'entretien <svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M528 32H48C21.5 32 0 53.5 0 80v16h576V80c0-26.5-21.5-48-48-48zM0 432c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V128H0v304zm352-232c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16zm0 64c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16zm0 64c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16zM176 192c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zM67.1 396.2C75.5 370.5 99.6 352 128 352h8.2c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h8.2c28.4 0 52.5 18.5 60.9 44.2 3.2 9.9-5.2 19.8-15.6 19.8H82.7c-10.4 0-18.8-10-15.6-19.8z"/></svg>
+
+
+```stata
+* SuSo demande un ID unique qui s'appelle `interview__id`
+* Une approche simple consiste à créer un
+* numéro séquentiel pour chaque observation
+use "`menages'", clear
+drop interview__id      // écraser l'identifiant de la base source
+gen interview__id = _n  // créer un nouvel identifiant
+tempfile households
+save "`menages'", replace
+```
+
+---
+
+# Décider de l'affectation
+
+Voir les options:
+
+- [Affecter aux superviseurs; puis réaffecter aux agents sur le terrain](#affecter_aux_superviseurs)
+- [Affecter aux agents selon la langue parlée](#affecter_langue_parlee)
+
+---
+
+# Valider votre travail <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M505 174.8l-39.6-39.6c-9.4-9.4-24.6-9.4-33.9 0L192 374.7 80.6 263.2c-9.4-9.4-24.6-9.4-33.9 0L7 302.9c-9.4 9.4-9.4 24.6 0 34L175 505c9.4 9.4 24.6 9.4 33.9 0l296-296.2c9.4-9.5 9.4-24.7.1-34zm-324.3 106c6.2 6.3 16.4 6.3 22.6 0l208-208.2c6.2-6.3 6.2-16.4 0-22.6L366.1 4.7c-6.2-6.3-16.4-6.3-22.6 0L192 156.2l-55.4-55.5c-6.2-6.3-16.4-6.3-22.6 0L68.7 146c-6.2 6.3-6.2 16.4 0 22.6l112 112.2z"/></svg>
+
+.panelset[
+
+.panel[.panel-name[Survol]
+
+.pull-left[
+
+### Pourquoi
+
+- **Plus facile à identifier et diagnostiquer les problèmes.** SuSo [avertit sur l'existence de problèmes](https://support.mysurvey.solutions/headquarters/preloading/errors-in-user-supplied-files-for-preloading/). Du code rend l'identification plus vite and la remédiation plus facile.
+- **Possible d'identifier des problèmes subtiles.** SuSo n'identifie que les problèmes qui empêche le préchargement. Du code peut rechercher d'autres problèmes.
+- **Aide à écrire de meilleur code.** Au minimum, passe les tests. Idéalement, évite activement les problèmes.
+
+]
+
+.pull-right[
+
+### Comment
+
+- **Noms attendus.** SuSo s'attend à retrouver des variables de certains noms. 
+- **Types attendus.** SuSo s'attend à ce que les variables soient de certains types.
+- **Tout affecté.** SuSo affecte sur la base de la variable `_responsible`, si présente, and affecte le reste à un responsable de défaut. Évite l'affectation par défaut indésirable.
+
+]
+
+]
+
+.panel[.panel-name[Noms attendus]
+
+
+```stata
+
+* liste (indicative) des variables à vérifier
+* action: la liste doit correspondre aux variables attendues dans la base
+local expected_vars "interview__id grappe menage_id vague nom_prenom_cm localisation_menage"
+
+foreach expected_var of local expected_vars {
+
+    * vérifier si chaque variable attendue existe dans la base
+    * si oui, passer à la suivante
+    * sinon, échouer bruyamment
+    capture confirm variable `expected_var'
+    if (_rc != 0) {
+        di "Variable `expected_var' n'a pas été retrouvée."
+        error 1
+    }
+
+}
+
+```
+
+
+]
+
+.panel[.panel-name[Types attendus]
+
+
+```stata
+
+local expected_vars "interview__id grappe menage_id vague nom_prenom_cm localisation_menage"
+local expected_types "numeric numeric numeric numeric str str"
+
+local num_vars: word count `expected_vars'
+
+forvalues i = 1/`num_vars' {
+
+    local expected_var: word `i' of `expected_vars'
+    local expected_type: word `i' of `expected_types'
+
+    * vérifier si chaque variable attendue a le bon type
+    * si oui, passer à la suivante
+    * sinon, échouer bruyamment
+    capture confirm `expected_type' variable `expected_var'
+    if (_rc != 0) {
+        di "Variable `expected_var' attendue comme `expected_type', mais un autre type a été détecté"
+        error 1
+    }
+
+}
+
+```
+
+]
+
+
+.panel[.panel-name[Tout affecté]
+
+
+```stata
+
+* tous les entretiens ont un responsable désigné
+capture assert _responsible != ""
+if _rc != 0 {
+    qui: count if _responsible == ""
+    local num_miss = r(N)
+    di "Toute affectation doit être assignée. Mais `num_miss' ne l'ont pas été."
+    error 1
+}
+
+```
+
+]
+
+]
+
+---
+
+# Sauvegarder vers le format tab <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"/></svg>
+
+
+
+```stata
+
+use "`menages'", clear
+outsheet using "`output_dir'/`hhold_file_out'", ///
+    nolabel /// sauvegarder les valeurs, pas les étiquettes
+    noquote /// pas de guillemets pour les variables texte
+    replace
+
+```
+
+---
+
+# Zipper le fichier tab <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zM128.4 336c-17.9 0-32.4 12.1-32.4 27 0 15 14.6 27 32.5 27s32.4-12.1 32.4-27-14.6-27-32.5-27zM224 136V0h-63.6v32h-32V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM95.9 32h32v32h-32zm32.3 384c-33.2 0-58-30.4-51.4-62.9L96.4 256v-32h32v-32h-32v-32h32v-32h-32V96h32V64h32v32h-32v32h32v32h-32v32h32v32h-32v32h22.1c5.7 0 10.7 4.1 11.8 9.7l17.3 87.7c6.4 32.4-18.4 62.6-51.4 62.6z"/></svg>
+
+
+```stata
+
+* rediriger vers le dossier où mettre le fichier zip
+cd "`output_dir'"
+
+* sauvegarder "affectations_nouveaux_menages.zip"
+zipfile "`hhold_file_out'", saving("affectations_nouveaux_menages.zip", replace)
+
+```
+
+---
+
+# Importer le ficher sur SuSo <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm65.18 216.01H224v80c0 8.84-7.16 16-16 16h-32c-8.84 0-16-7.16-16-16v-80H94.82c-14.28 0-21.41-17.29-11.27-27.36l96.42-95.7c6.65-6.61 17.39-6.61 24.04 0l96.42 95.7c10.15 10.07 3.03 27.36-11.25 27.36zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"/></svg>
+
+&lt;video width="1920" height="500" controls&gt;
+  &lt;source src="assets/upload_assignments.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+
+---
+
+name: programme_nouveaux_menages
+
+# Programme modèle <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M255.03 261.65c6.25 6.25 16.38 6.25 22.63 0l11.31-11.31c6.25-6.25 6.25-16.38 0-22.63L253.25 192l35.71-35.72c6.25-6.25 6.25-16.38 0-22.63l-11.31-11.31c-6.25-6.25-16.38-6.25-22.63 0l-58.34 58.34c-6.25 6.25-6.25 16.38 0 22.63l58.35 58.34zm96.01-11.3l11.31 11.31c6.25 6.25 16.38 6.25 22.63 0l58.34-58.34c6.25-6.25 6.25-16.38 0-22.63l-58.34-58.34c-6.25-6.25-16.38-6.25-22.63 0l-11.31 11.31c-6.25 6.25-6.25 16.38 0 22.63L386.75 192l-35.71 35.72c-6.25 6.25-6.25 16.38 0 22.63zM624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"/></svg>
+
+.left-column-bg[
+![](assets/programme_nouveaux_menages.png)
+]
+
+.right-column-sm[
+
+- Obtenir [ici](assets/creer_affectations_nouveaux_menages.do) <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"/></svg>
+- Adapter à votre situation
+
+]
+
+---
+
+layout: false
+
+class: section-title-2, center, middle, inverse
+
+# Anciens ménages
+
+---
+
+layout: true
+class: title, title-2
+
+---
+
+# Recette 👨‍🍳
+
+1. Fixer les paramètres du projet
+1. Créer un nouvel ID de l'entretien
+1. Créer un roster des membres
+1. Créer une liste des membres
+1. Créer une base niveau ménage
+1. Ajouter la liste à la base ménage
+1. Créer une liste des variables à protéger
+1. Décider de l'affectation
+1. Valider votre travail
+1. Sauvegarder vers le format délimité par tab
+1. Zipper tous les fichiers tab
+1. Importer le ficher sur SuSo
+
+---
+
+# Outils 🔪
+
+- `local`
+- `use`
+- `generate` / `replace`
+- `rename`
+- `keep`
+- `tempfile`
+- `merge`
+- `save`
+- `reshape wide`
+- `set obs`
+- `collapse`
+- `capture`
+- `confirm`
+- `assert`
+- `outsheet`
+- `zipfile`
+
+---
+
+# Fixer les paramètres du projet <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"/></svg>
+
+.panelset[
+
+.panel[.panel-name[Dossiers]
+
+
+```stata
+
+* DOSSIERS
+local proj_dir      ""              // où trouver tous les fichiers du projet
+local input_dir     "`proj_dir'"    // où trouver les fichiers d'entree. Par exemple: "`proj_dir'/entree/"
+local output_dir    "`proj_dir'"    // où trouver les fichiers de sortie. Par example: "`proj_dir'/sortie/"
+
+```
+
+]
+
+.panel[.panel-name[Entrées]
+
+
+```stata
+
+* FICHIERS
+* entrée:
+local hhold_file_in     "menage.dta"    // fichier ménage
+local member_file_in    "membres.dta"   // fichier membre
+
+```
+
+]
+
+.panel[.panel-name[Sorties]
+
+
+```stata
+
+* sortie:
+local hhold_file_out    "menage.tab"
+    * nom du fichier = questionnaire variable
+    * afin de retrouver ce nom: 
+    * - ouvrir le questionnaire dans Designer
+    * - cliquer sur PARAMÈTRES
+    * - copier la valeur du champs `Questionnaire variable`
+local member_file_out   "membres.tab"
+    * ROSTER des membres
+    * nom du fichier = (premier) roster ID dans Designer
+
+```
+
+]
+
+.panel[.panel-name[Ménage]
+
+.pull-left[
+
+
+```stata
+
+local hhold_file_out    "menage.tab"
+    * nom du fichier = questionnaire variable
+    * afin de retrouver ce nom: 
+    * - ouvrir le questionnaire dans Designer
+    * - cliquer sur PARAMÈTRES
+    * - copier la valeur du champs `Questionnaire variable`
+
+```
+
+]
+
+.pull-right[
+
+![](assets/qnr_var_in_Designer.png)
+
+]
+
+]
+
+.panel[.panel-name[Membres]
+
+.pull-left[
+
+
+```stata
+
+local member_file_out   "membres.tab"
+    * ROSTER des membres
+    * nom du fichier = (premier) roster ID dans Designer
+
+```
+
+]
+
+.pull-right[
+
+![](assets/members_roster.png)
+
+]
+
+]
+
+]
+
+---
+
+# Créer un nouvel ID de l'entretien <svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M528 32H48C21.5 32 0 53.5 0 80v16h576V80c0-26.5-21.5-48-48-48zM0 432c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V128H0v304zm352-232c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16zm0 64c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16zm0 64c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16zM176 192c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zM67.1 396.2C75.5 370.5 99.6 352 128 352h8.2c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h8.2c28.4 0 52.5 18.5 60.9 44.2 3.2 9.9-5.2 19.8-15.6 19.8H82.7c-10.4 0-18.8-10-15.6-19.8z"/></svg>
+
+
+```stata
+* SuSo demande un ID unique qui s'appelle `interview__id`. Créer un numéro séquentiel pour chaque observation
+use "`input_dir`/`hhold_file_in'", clear
+gen interview__id_new = _n
+tempfile menages
+save "`menages'", replace
+
+* ajouter ce nouvel ID à chaque fichier
+use "`input_dir`/`member_file_in'", clear
+merge m:1 interview__id using "`menages'",  /// fusionner par hhid
+    keepusing(interview__id_new)            /// ajouter la variable interview__id du fichier ménage
+    keep(3) nogen noreport                  /// ne créer pas _merge; n'afficher pas les résultats; retenir les cas en commun
+
+tempfile membres
+save "`membres'", replace
+
+```
+
+---
+
+# Créer un roster des membres <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M96 224c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm448 0c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm32 32h-64c-17.6 0-33.5 7.1-45.1 18.6 40.3 22.1 68.9 62 75.1 109.4h66c17.7 0 32-14.3 32-32v-32c0-35.3-28.7-64-64-64zm-256 0c61.9 0 112-50.1 112-112S381.9 32 320 32 208 82.1 208 144s50.1 112 112 112zm76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C179.6 288 128 339.6 128 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2zm-223.7-13.4C161.5 263.1 145.6 256 128 256H64c-35.3 0-64 28.7-64 64v32c0 17.7 14.3 32 32 32h65.9c6.3-47.4 34.9-87.3 75.2-109.4z"/></svg>
+
+.panelset[
+
+.panel[.panel-name[Utiliser]
+
+.left-column-bg[
+.w-60.center[
+![](assets/info_source.png)
+]
+]
+
+.right-column-sm[
+### Général
+
+- Identifier la dernière observation du ménage
+- Puiser dans ces infos sur les membres
+
+### COVID-19
+
+- Prendre la dernière observation du panel
+
+]
+
+]
+
+.panel[.panel-name[Enlever]
+
+
+```stata
+use "`membres'", clear
+
+* Garder les personnes toujours membre du ménage (selon la dernière enquête)
+* NB: ceci n'est pertinent que pour les enquêtes téléphoniques où l'on
+* constate le départ des membres
+* NB: le nom de la variable doit être adapté à vos données
+keep if toujours_membre == 1
+
+```
+
+]
+
+.panel[.panel-name[Renommer]
+
+.pull-left[
+
+![](assets/members_roster.png)
+
+]
+
+.pull-right[
+
+
+```stata
+* renommer/créer des variables pour s'accorder avec SuSo
+
+// ID panel du membre
+gen preload_pid = s01q00a
+
+// sexe
+gen preload_sex = s01q01
+
+// âge
+gen preload_age = AgeAnnee
+
+// lien de parenté
+gen preload_relation = s01q02
+
+```
+
+
+]
+
+]
+
+.panel[.panel-name[Renuméroter]
+
+
+```stata
+
+* trier par identifiant de ménage et de membre
+* pas strictement nécessaire; juste plus propre
+sort interview__id s01q00a
+
+* NB: si la base contient la variable membres__id déjà, il faut la supprimer
+
+* créer un nouveau numéro séquentiel pour identifier les membres
+* pourquoi?
+* SuSo a besoin d'un ID membre qui:
+* - commence à partir de 0
+* - est séquentiel
+* - n'a pas de lacunes dans la séquence
+* Ceci garanti que la liste des membres (diapo suivant) est de la bonne forme
+* L'ID membre peut ne pas être séquentiel pour plusieurs raisons :
+* - Membres éliminés (voir plus tôt ce diapo)
+* - Lacunes existent à cause du processus de capter les infos (e.g., membre ajouté puis supprimé par l'enquêteur)
+bysort interview__id: generate membres__id = _n
+
+```
+
+]
+
+.panel[.panel-name[Retenir]
+
+.pull-left[
+
+![](assets/members_roster.png)
+
+]
+
+.pull-right[
+
+
+```stata
+
+keep interview__id_new interview__id members__id /// IDs
+    preload_pid         /// identifiant panel du membre
+    preload_sex         /// sexe
+    preload_age         /// âge
+    preload_relation    /// lien de parenté
+    NOM_PRENOMS         /// nom
+    s01q01              /// sexe
+    s01q02              /// lien de parenté
+    s01q03a             /// DDN: jour
+    s01q03b             /// DDN: mois
+    s01q03c             /// DDN: année
+
+```
+]
+
+]
+
+.panel[.panel-name[Sauvegarder]
+
+
+```stata
+
+* préparer pour la création d'une liste
+* rien à modifier
+tempfile membres_pour_liste
+save "`membres_pour_liste'"
+
+* préparer pour le préchargement du roster
+* retenir le nouvel identifiant ménage
+drop interview__id
+rename interview__id_new interview__id
+tempfile membres_roster
+save "`membres_roster'"
+
+```
+
+]
+
+]
+
+---
+
+# Créer une liste des membres <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M96 224c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm448 0c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm32 32h-64c-17.6 0-33.5 7.1-45.1 18.6 40.3 22.1 68.9 62 75.1 109.4h66c17.7 0 32-14.3 32-32v-32c0-35.3-28.7-64-64-64zm-256 0c61.9 0 112-50.1 112-112S381.9 32 320 32 208 82.1 208 144s50.1 112 112 112zm76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C179.6 288 128 339.6 128 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2zm-223.7-13.4C161.5 263.1 145.6 256 128 256H64c-35.3 0-64 28.7-64 64v32c0 17.7 14.3 32 32 32h65.9c6.3-47.4 34.9-87.3 75.2-109.4z"/></svg>
+
+
+```stata
+use "`membres_pour_liste'", clear
+
+keep interview__id_new membres__id NOM_PRENOMS
+
+* La liste de SuSo est indexée à 0
+* membres__id commence avec 1
+* soustraire 1 de membres__id pour que les deux s'accordent
+replace membres__id = membres__id - 1
+
+* Les questions liste de SuSo's sont formattées comme suit :
+* - chaque élément de la liste occupe sa propre colonne
+* - le nom de chaque élément consiste de: du nom de variable chez Designer, 
+*    le texte __ comme séparateur, et de l'indice de l'élément (e.g. var__0 pour le 1ier élément, var__2 pour le 2e, etc)
+* Afin de ramener la base dans le format demandé par SuSo:
+* renommer la variable pour être du format var__
+rename NOM_PRENOMS NOM_PRENOMS__
+
+* remodeler les données de sorte que chaque élément soit une colonne et chaque 
+* colonne ait un nom de la forme var__0, var__1, etc.
+reshape wide NOM_PRENOMS__, i(interview__id_new) j(membres__id)
+
+tempfile membres_liste
+save "`membres_liste'"
+
+```
+
+---
+
+# Créer une base niveau ménage <svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>
+
+.pull-left[
+
+![](assets/hhold_id_vars.png)
+
+]
+
+.pull-right[
+
+
+```stata
+
+use "`menages'", clear
+
+* créer des variables pour les besoin d'identification
+gen vague = 3               // vague de collecte
+gen s00q07f1 = grappe       // ancien numéro de grappe
+gen s00q07f2 = id_menage    // ancien numéro de ménage
+gen s00q07a = 1             // tout ancien ménage est résident
+
+* retenir seulement les variables anticipées par SuSo
+* comme SuSo ne sait pas comment
+* gérer des variables supplémentaires
+keep interview__id interview__id_new ///
+    grappe id_menage vague nom_prenom_cm localisation_menage /// couverture
+    s00q00 s00q01 s00q02 s00q03 s00q04 s00q05 s00q06 s00q07 s00q07a s00q07f* /// identification
+    s00q28 /// langue de l'entretien: à retenir seulement si l'affectation se fait sur cette base
+
+tempfile menages
+save "`menages'", replace
+
+```
+
+]
+
+---
+
+#  Ajouter la liste à la base ménage <svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>
+
+.pull-left[
+
+![](assets/member_list.png)
+
+]
+
+.pull-right[
+
+
+```stata
+
+use "`menages'", clear
+
+* ajouter la question liste à la base ménage
+merge 1:1 interview__id_new using "`membres_liste'", nogen noreport assert(3) keep(3)
+
+tempfile menages_plus_liste
+save "`menages_plus_liste'"
+
+```
+
+]
+
+---
+
+# Créer une liste des variables à protéger <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"/></svg>
+
+.pull-left[
+
+![](assets/member_list.png)
+
+]
+
+.pull-right[
+
+
+```stata
+
+* créer une base de la forme suivante :
+* | variable__name  |
+* | --------------- |
+* | "var1"          |
+* | "var2"          |
+
+* créer une base vide avec 1 observation
+clear
+set obs 1
+
+* peupler l'observation avec le nom de la
+* variable dont les valeurs préchargées sont à protéger
+* typiquement, il s'agit de questions qui enclenchent un roster
+* comme la liste ici-bas
+gen variable__name = ""
+replace variable__name = "NOM_PRENOMS" in 1
+
+tempfile protected_vars
+save "`protected_vars'"
+
+```
+
+]
+
+---
+
+# Décider de l'affectation
+
+### Options
+
+- [Sur le champs](#affecter_aux_superviseurs)
+- Avant la descente sur le terrain, sur la base de:
+    - [Ancien agent](#ancien_agent)
+    - [Agent qui parle la langue](#affecter_langue_parlee)
+
+---
+
+name: affecter_aux_superviseurs
+
+# Décider de l'affectation &amp;mdash; sur le champs
+
+- Affecter aux chefs d'équipe
+- Réaffecter vers les agents sur le terrain
+
+---
+
+name: ancien_agent
+
+# Décider de l'affectation &amp;mdash; ancien agent
+
+.panelset[
+
+.panel[.panel-name[Base]
+
+.left-column-bg[
+![](assets/interview__actions.png)
+]
+
+.right-column-sm[
+- Chaque action sur les entretiens.
+- Qui a réalisé l'action et quand.
+- Voir [ici](https://docs.mysurvey.solutions/headquarters/export/system-generated-export-file-anatomy/) pour plus de détails techniques.
+]
+
+]
+
+.panel[.panel-name[Extraire]
+
+
+.pull-left[
+![](assets/interviewer_responsible.png)
+]
+
+.pull-right[
+
+```stata
+* retenir les actions par les enquêteurs
+use interview__actions.dta, clear
+keep if (responsible__role == 1)
+
+* prendre comme responsable le dernier enquêteur à toucher le questionnaire
+collapse (last) enqueteur = responsible__name, by(interview__id)
+tempfile enqueteurs_responsibles
+save "`enqueteurs_responsibles'"
+
+* fusionner ces infos à la base ménage
+use "`households_plus_lists'", clear
+merge 1:1 interview__id using "`enqueteurs_responsibles'", keep(3) nogen keepusing(enqueteur)
+rename enqueteur _responsible
+
+* retenir le nouvel identifiant comme identifiant; sauvegarder le résultat
+drop interview__id
+rename interview__id_new interview__id
+tempfile menages_final
+save "`menages_final'", replace
+
+```
+]
+
+]
+
+]
+
+---
+
+name: affecter_langue_parlee
+
+# Décider de l'affectation &amp;mdash; par langue parlée
+
+.panelset[
+
+.panel[.panel-name[Connaître]
+
+.pull-left[
+
+Imaginons qu'il y a 3 enquêteurs:
+
+- Interviewer_1
+- Interviewer_2
+- Interviewer_3
+
+]
+
+.pull-right[
+
+- **Interviewer_1 parle:**
+    - Bambara/Malinké (1)
+    - Peulh/Foulfoulbé (2)
+    - Sonhrai (3)
+    - Sarakolé (4)
+- **Interviewer_2 parle:**
+    - Kassonké (5)
+    - Sénoufo/Minianka (6)
+    - Dogon (7)
+    - Maure (8)
+- **Interviewer_3 parle:**
+    - Tamacheq (9)
+    - Bobo / Dafing / Samogo (10)
+    - Français (11)
+
+]
+
+]
+
+.panel[.panel-name[Appareiller]
+
+
+```stata
+
+use "`households_plus_lists'", clear
+
+* SuSo affecte selon le nom d'utilisateur retrouvé dans la 
+* colonne _responsible
+* Créer des affectations en mettant ensemble les enquêteurs et le ménages
+* selon les langues parlées par l'enquêteur
+* Ici-bas se trouve un exemple simple. L'affectation réale peut être plus complexe.
+gen _responsible = ""
+replace _responsible = "Interviewer_1" if inlist(s00q28, 1, 2, 3, 4)
+replace _responsible = "Interviewer_2" if inlist(s00q28, 5, 6, 7, 8)
+replace _responsible = "Interviewer_2" if inlist(s00q28, 9, 10, 11)
+
+```
+
+]
+
+.panel[.panel-name[Ajuster]
+
+
+
+```stata
+
+* voir combien d'entretiens sont affectés à chaque enquêtuer
+tab _responsible
+
+* faire des justements, besoin
+* soit de manière ad-hoc ou par une règle 
+* replace _responsible ...
+
+* retenir le nouvel identifiant comme identifiant
+* sauvegarder le résultat
+drop interview__id
+rename interview__id_new interview__id
+tempfile menages_final
+save "`menages_final'", replace
+
+```
+
+]
+
+]
+
+---
+
+
+# Valider votre travail <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M505 174.8l-39.6-39.6c-9.4-9.4-24.6-9.4-33.9 0L192 374.7 80.6 263.2c-9.4-9.4-24.6-9.4-33.9 0L7 302.9c-9.4 9.4-9.4 24.6 0 34L175 505c9.4 9.4 24.6 9.4 33.9 0l296-296.2c9.4-9.5 9.4-24.7.1-34zm-324.3 106c6.2 6.3 16.4 6.3 22.6 0l208-208.2c6.2-6.3 6.2-16.4 0-22.6L366.1 4.7c-6.2-6.3-16.4-6.3-22.6 0L192 156.2l-55.4-55.5c-6.2-6.3-16.4-6.3-22.6 0L68.7 146c-6.2 6.3-6.2 16.4 0 22.6l112 112.2z"/></svg>
+
+.panelset[
+
+.panel[.panel-name[Survol]
+
+.pull-left[
+
+### Pourquoi
+
+- **Plus facile à identifier et diagnostiquer les problèmes.** SuSo [avertit sur l'existence de problèmes](https://support.mysurvey.solutions/headquarters/preloading/errors-in-user-supplied-files-for-preloading/). Du code rend l'identification plus vite and la remédiation plus facile.
+- **Possible d'identifier des problèmes subtiles.** SuSo n'identifie que les problèmes qui empêche le préchargement. Du code peut rechercher d'autres problèmes.
+- **Aide à écrire de meilleur code.** Au minimum, passe les tests. Idéalement, évite activement les problèmes.
+
+]
+
+.pull-right[
+
+### Comment
+
+- **Noms attendus.** SuSo s'attend à retrouver des variables de certains noms. 
+- **Types attendus.** SuSo s'attend à ce que les variables soient de certains types.
+- **Tout affecté.** SuSo affecte sur la base de la variable `_responsible`, si présente, and affecte le reste à un responsable de défaut. Évite l'affectation par défaut indésirable.
+- **Liste complète.** Les éléments d'une variable liste doivent être non-vides--en particulier, le premier.
+
+]
+
+]
+
+.panel[.panel-name[Noms attendus]
+
+
+```stata
+
+* liste (indicative) des variables à vérifier
+* action: la liste doit correspondre aux variables attendues dans la base
+local expected_vars "interview__id grappe menage_id vague nom_prenom_cm localisation_menage NOM_PRENOMS__0"
+
+foreach expected_var of local expected_vars {
+
+    * vérifier si chaque variable attendue existe dans la base
+    * si oui, passer à la suivante
+    * sinon, échouer bruyamment
+    capture confirm variable `expected_var'
+    if (_rc != 0) {
+        di "Variable `expected_var' n'a pas été retrouvée."
+        error 1
+    }
+
+}
+
+```
+
+
+]
+
+.panel[.panel-name[Types attendus]
+
+
+```stata
+
+local expected_vars "interview__id grappe menage_id vague nom_prenom_cm localisation_menage NOM_PRENOMS__0"
+local expected_types "numeric numeric numeric numeric str str str"
+
+local num_vars: word count `expected_vars'
+
+forvalues i = 1/`num_vars' {
+
+    local expected_var: word `i' of `expected_vars'
+    local expected_type: word `i' of `expected_types'
+
+    * vérifier si chaque variable attendue a le bon type
+    * si oui, passer à la suivante
+    * sinon, échouer bruyamment
+    capture confirm `expected_type' variable `expected_var'
+    if (_rc != 0) {
+        di "Variable `expected_var' attendue comme `expected_type', mais un autre type a été détecté"
+        error 1
+    }
+
+}
+
+```
+
+]
+
+
+.panel[.panel-name[Tout affecté]
+
+
+```stata
+
+* tous les entretiens ont un responsable désigné
+capture assert _responsible != ""
+if _rc != 0 {
+    qui: count if _responsible == ""
+    local num_miss = r(N)
+    di "Toute affectation doit être assignée. Mais `num_miss' ne l'ont pas été."
+    error 1
+}
+
+```
+
+]
+
+.panel[.panel-name[Liste compète]
+
+
+```stata
+
+* la liste des membres n'est pas vide
+capture assert !inlist(NOM_PRENOMS__0, "", " ")
+if _rc != 0 {
+    qui: count if inlist(NOM_PRENOMS__0, "", " ")
+    local num_miss = r(N)
+    di "Les listes ne devraient pas avoir des éléments vides. Mais `num_miss' instances de NOM_PRENOMS__0 ont une valeur nulle/vide."
+}
+
+```
+
+]
+
+]
+
+---
+
+# Sauvegarder vers le format tab <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"/></svg>
+
+.panelset[
+
+.panel[.panel-name[Ménages]
+
+.pull-left[
+
+
+```stata
+
+* NIVEAU MÉNAGE
+* nom du fichier = questionnaire variable
+* afin de retrouver ce nom: 
+* - ouvrir le questionnaire dans Designer
+* - cliquer sur PARAMÈTRES
+* - copier la valeur depuis Questionnaire variable
+use "`menages_final'", clear
+outsheet using "`input_dir'/`hhold_file_out'", ///
+    nolabel /// sauvegarder les valeurs, pas les étiquettes
+    noquote /// pas de guillemets pour les variables texte
+    replace
+
+```
+
+]
+
+.pull-right[
+
+![](assets/qnr_var_in_Designer.png)
+
+]
+
+]
+
+.panel[.panel-name[Membres]
+
+.pull-left[
+
+
+```stata
+
+* NIVEAU MEMBRES
+* nom du fichier = (premier) roster ID pour ce roster dans Designer
+use "`membres_roster'", clear
+outsheet using "`input_dir'/`member_file_out'", ///
+    nolabel /// sauvegarder les valeurs, pas les étiquettes
+    noquote /// pas de guillemets pour les variables texte
+    replace
+
+```
+]
+
+.pull-right[
+
+![](assets/members_roster.png)
+
+]
+
+]
+
+.panel[.panel-name[Variables protégées]
+
+
+```stata
+
+* VARIABLE DONT LES VALEURS PRÉCHARGÉES SONT À PROTÉGER
+* nom du fichier = nom imuable attendu par le système: protected__variables
+use "`protected_vars'", clear
+outsheet using "`input_dir'/protected__variables.tab", noquote replace
+
+```
+
+]
+
+]
+
+---
+
+# Zipper tous les fichiers tab <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zM128.4 336c-17.9 0-32.4 12.1-32.4 27 0 15 14.6 27 32.5 27s32.4-12.1 32.4-27-14.6-27-32.5-27zM224 136V0h-63.6v32h-32V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM95.9 32h32v32h-32zm32.3 384c-33.2 0-58-30.4-51.4-62.9L96.4 256v-32h32v-32h-32v-32h32v-32h-32V96h32V64h32v32h-32v32h32v32h-32v32h32v32h-32v32h22.1c5.7 0 10.7 4.1 11.8 9.7l17.3 87.7c6.4 32.4-18.4 62.6-51.4 62.6z"/></svg>
+
+
+```stata
+
+* rediriger vers le dossier où mettre le fichier zip
+cd "`output_dir'"
+
+* lister tous les fichiers se terminant en ".tab"
+* créer un fichier zip pour les regrouper
+* sauvegarder "affectations.zip"
+zipfile "*.tab", saving("affectations_anciens_menages", replace)
+
+```
+
+---
+
+# Importer le ficher sur SuSo <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm65.18 216.01H224v80c0 8.84-7.16 16-16 16h-32c-8.84 0-16-7.16-16-16v-80H94.82c-14.28 0-21.41-17.29-11.27-27.36l96.42-95.7c6.65-6.61 17.39-6.61 24.04 0l96.42 95.7c10.15 10.07 3.03 27.36-11.25 27.36zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"/></svg>
+
+&lt;video width="1920" height="500" controls&gt;
+  &lt;source src="assets/upload_assignments.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+
+---
+
+name: programme_anciens_menages
+
+# Programme modèle <svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M255.03 261.65c6.25 6.25 16.38 6.25 22.63 0l11.31-11.31c6.25-6.25 6.25-16.38 0-22.63L253.25 192l35.71-35.72c6.25-6.25 6.25-16.38 0-22.63l-11.31-11.31c-6.25-6.25-16.38-6.25-22.63 0l-58.34 58.34c-6.25 6.25-6.25 16.38 0 22.63l58.35 58.34zm96.01-11.3l11.31 11.31c6.25 6.25 16.38 6.25 22.63 0l58.34-58.34c6.25-6.25 6.25-16.38 0-22.63l-58.34-58.34c-6.25-6.25-16.38-6.25-22.63 0l-11.31 11.31c-6.25 6.25-6.25 16.38 0 22.63L386.75 192l-35.71 35.72c-6.25 6.25-6.25 16.38 0 22.63zM624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"/></svg>
+
+.left-column-bg[
+![](assets/programme_anciens_menages.png)
+]
+
+.right-column-sm[
+
+
+- Cliquer [ici](assets/creer_affectations_anciens_menages.do) <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"/></svg>
+- Adapter à votre situation
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
