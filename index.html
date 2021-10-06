@@ -211,7 +211,7 @@ use "`input_dir'/`sel_hholds_file_in'", clear
 
 * NB: il est possible qu'il y ait des manipulations à faire pour avoir une base
 * de la forme et du contenu souhaité
-gen vague = 4
+gen vague = 1
 
 * retenir les variables à précharger
 keep interview__id ///
@@ -426,7 +426,7 @@ class: title, title-2
 
 ---
 
-# Recette 👨‍🍳
+# Recette 👩‍🍳
 
 1. Fixer les paramètres du projet
 1. Créer un nouvel ID de l'entretien
@@ -797,7 +797,7 @@ save "`membres_liste'"
 use "`menages'", clear
 
 * créer des variables pour les besoin d'identification
-gen vague = 3               // vague de collecte
+gen vague = 1               // vague de collecte
 gen s00q07f1 = grappe       // ancien numéro de grappe
 gen s00q07f2 = id_menage    // ancien numéro de ménage
 gen s00q07a = 1             // tout ancien ménage est résident
