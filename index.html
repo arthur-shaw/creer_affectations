@@ -207,7 +207,15 @@ local hhold_file_out    "menage.tab"
 
 ```stata
 
+* INGÉRER LES DONNÉES CONCERNANT LES NOUVEAUX MÉNAGES
+* utiliser la méthode selon le format du fichier d'entrée
+* si Stata
 use "`input_dir'/`sel_hholds_file_in'", clear
+* si Excel
+* import excel using "`input_dir'/`sel_hholds_file_in'", ///
+*     sheet("nom_de_l_onglet")  /// désigner le nom de l'onglet avec les données
+*     firstrow case(preserve)   /// retenir la première ligne comme noms des variables
+*     clear
 
 * NB: il est possible qu'il y ait des manipulations à faire pour avoir une base
 * de la forme et du contenu souhaité
