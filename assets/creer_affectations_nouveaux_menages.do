@@ -45,8 +45,8 @@ Créer un nouvel ID de l'entretien
 * SuSo demande un ID unique qui s'appelle `interview__id`
 * Une approche simple consiste à créer un
 * numéro séquentiel pour chaque observation
-drop interview__id      // écraser l'identifiant de la base source
-gen interview__id = _n  // créer un nouvel identifiant
+capture drop interview__id      // écraser l'identifiant de la base source
+gen interview__id = _n          // créer un nouvel identifiant
 tempfile households
 save "`menages'", replace
 

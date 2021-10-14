@@ -217,11 +217,12 @@ use "`input_dir'/`sel_hholds_file_in'", clear
 *     firstrow case(preserve)   /// retenir la première ligne comme noms des variables
 *     clear
 
+* PRÉPARER LES VARIABLES À PRÉCHARGER
 * NB: il est possible qu'il y ait des manipulations à faire pour avoir une base
 * de la forme et du contenu souhaité
 gen vague = 1
 
-* retenir les variables à précharger
+* RETENIR LES VARIABLES À PRÉCHARGER
 keep interview__id ///
     grappe id_menage vague nom_prenom_cm localisation_menage    /// couverture
     s00q00 s00q01 s00q02 s00q03 s00q04 s00q05 s00q06 s00q07     /// identification
@@ -240,8 +241,8 @@ save "`menages'"
 * Une approche simple consiste à créer un
 * numéro séquentiel pour chaque observation
 use "`menages'", clear
-drop interview__id      // écraser l'identifiant de la base source
-gen interview__id = _n  // créer un nouvel identifiant
+capture drop interview__id      // écraser l'identifiant de la base source
+gen interview__id = _n          // créer un nouvel identifiant
 tempfile households
 save "`menages'", replace
 ```
@@ -434,7 +435,7 @@ class: title, title-2
 
 ---
 
-# Recette 👩‍🍳
+# Recette 👨‍🍳
 
 1. Fixer les paramètres du projet
 1. Créer un nouvel ID de l'entretien
@@ -499,6 +500,10 @@ local output_dir    "`proj_dir'"    // où trouver les fichiers de sortie. Par e
 * entrée:
 local hhold_file_in     "menage.dta"    // fichier ménage
 local member_file_in    "membres.dta"   // fichier membre
+
+* NB: le nom des bases peut être différer d'un contexte à l'autre. Par exemple:
+* - pour les données brutes exportés par SuSo, c'est "menage.dta" et "membres.dta", respectivement
+* - pour les données apurées et harmonisées, il s'agit des bases s00 et s01, respectivement
 
 ```
 
@@ -587,9 +592,16 @@ gen interview__id_new = _n
 tempfile menages
 save "`menages'", replace
 
+* NB: pour fusionner les bases menage et membres, on a besoin de variables qui :
+* - sont disponbiles dans les deux bases et 
+* - qui identifient uniquement chaque ménage
+* Ces variables peuvent être différente selon la nature des bases d'entrée
+* - pour les données brutes exportés par SuSo, c'est interview__id
+* - pour les données apurées (e.g., les bases s00 et s01), c'est hhid ou la combinaison de grappe et menage
+
 * ajouter ce nouvel ID à chaque fichier
 use "`input_dir`/`member_file_in'", clear
-merge m:1 interview__id using "`menages'",  /// fusionner par hhid
+merge m:1 interview__id using "`menages'",  /// fusionner par hhid qui peut être différent selon les bases d'entrée
     keepusing(interview__id_new)            /// ajouter la variable interview__id du fichier ménage
     keep(3) nogen noreport                  /// ne créer pas _merge; n'afficher pas les résultats; retenir les cas en commun
 
@@ -663,7 +675,7 @@ gen preload_pid = s01q00a
 gen preload_sex = s01q01
 
 // âge
-gen preload_age = AgeAnnee
+gen preload_age = AgeAnnee // ou à défaut de cela, s01q04a
 
 // lien de parenté
 gen preload_relation = s01q02

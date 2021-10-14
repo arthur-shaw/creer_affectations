@@ -12,6 +12,10 @@ local output_dir    ""    // où trouver les fichiers de sortie. Par example: "`
 local hhold_file_in     "menage.dta"    // fichier ménage
 local member_file_in    "membres.dta"   // fichier membre
 
+    * NB: le nom des bases peut être différer d'un contexte à l'autre. Par exemple:
+    * - pour les données brutes exportés par SuSo, c'est "menage.dta" et "membres.dta", respectivement
+    * - pour les données apurées et harmonisées, il s'agit des bases s00 et s01, respectivement
+
 * sortie:
 local hhold_file_out    "menage.tab"
     * nom du fichier = questionnaire variable
@@ -36,6 +40,13 @@ use "`input_dir`/`hhold_file_in'", clear
 gen interview__id_new = _n
 tempfile menages
 save "`menages'", replace
+
+* NB: pour fusionner les bases menage et membres, on a besoin de variables qui :
+* - sont disponbiles dans les deux bases et 
+* - qui identifient uniquement chaque ménage
+* Ces variables peuvent être différente selon la nature des bases d'entrée
+* - pour les données brutes exportés par SuSo, c'est interview__id
+* - pour les données apurées (e.g., les bases s00 et s01), c'est hhid ou la combinaison de grappe et menage
 
 * ajouter ce nouvel ID à chaque fichier
 use "`input_dir`/`member_file_in'", clear
@@ -70,7 +81,7 @@ gen preload_pid = s01q00a
 // sexe
 gen preload_sex = s01q01
 // âge lors de l'EHCVM
-gen preload_age = AgeAnnee
+gen preload_age = AgeAnnee // ou à défaut de cela, s01q04a
 // lien de parenté
 gen preload_relation = s01q02
 
