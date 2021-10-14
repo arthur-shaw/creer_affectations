@@ -223,7 +223,7 @@ use "`menages'", clear
 
 * liste (indicative) des variables à vérifier
 * action: la liste doit correspondre aux variables attendues dans la base
-local expected_vars "interview__id grappe menage_id vague nom_prenom_cm localisation_menage NOM_PRENOMS__0"
+local expected_vars "interview__id grappe menage_id vague nom_prenom_cm localisation_menage NOM_PRENOMS__0 s00q00 s00q01 s00q02 s00q03 s00q04 s00q05 s00q06 s00q07"
 foreach expected_var of local expected_vars {
     * vérifier si chaque variable attendue existe dans la base
     * si oui, passer à la suivante
@@ -239,8 +239,8 @@ foreach expected_var of local expected_vars {
 Types attendus
 -----------------------------------------------------------------------------*/
 
-local expected_vars "interview__id grappe menage_id vague nom_prenom_cm localisation_menage NOM_PRENOMS__0"
-local expected_types "numeric numeric numeric numeric str str str"
+local expected_vars "interview__id grappe menage_id vague nom_prenom_cm localisation_menage NOM_PRENOMS__0 s00q00 s00q01 s00q02 s00q03 s00q04 s00q05 s00q06 s00q07"
+local expected_types "numeric numeric numeric numeric str str str numeric numeric numeric numeric numeric str numeric numeric"
 local num_vars: word count `expected_vars'
 forvalues i = 1/`num_vars' {
     local expected_var: word `i' of `expected_vars'
