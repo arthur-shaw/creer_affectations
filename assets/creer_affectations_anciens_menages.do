@@ -190,6 +190,9 @@ Ajouter la liste à la base ménage
 use "`menages'", clear
 * ajouter la question liste à la base ménage
 merge 1:1 interview__id_new using "`membres_liste'", nogen noreport assert(3) keep(3)
+capture drop interview__id
+rename interview__id_new interview__id
+
 tempfile menages_plus_liste
 save "`menages_plus_liste'"
 
