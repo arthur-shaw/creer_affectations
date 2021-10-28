@@ -230,7 +230,7 @@ Valider le travail
 Noms attendus
 -----------------------------------------------------------------------------*/
 
-use "`menages'", clear
+use "`menages_plus_liste'", clear
 
 * liste (indicative) des variables à vérifier
 * action: la liste doit correspondre aux variables attendues dans la base
@@ -305,8 +305,8 @@ Sauvegarder vers le format tab
 * - ouvrir le questionnaire dans Designer
 * - cliquer sur PARAMÈTRES
 * - copier la valeur depuis Questionnaire variable
-use "`menages_final'", clear
-outsheet using "`input_dir'/`hhold_file_out'", ///
+use "`menages_plus_liste'", clear
+outsheet using "`output_dir'/`hhold_file_out'", ///
     nolabel /// sauvegarder les valeurs, pas les étiquettes
     noquote /// pas de guillemets pour les variables texte
     replace
@@ -314,7 +314,7 @@ outsheet using "`input_dir'/`hhold_file_out'", ///
 * NIVEAU MEMBRES
 * nom du fichier = (premier) roster ID pour ce roster dans Designer
 use "`membres_roster'", clear
-outsheet using "`input_dir'/`member_file_out'", ///
+outsheet using "`output_dir'/`member_file_out'", ///
     nolabel /// sauvegarder les valeurs, pas les étiquettes
     noquote /// pas de guillemets pour les variables texte
     replace
@@ -322,7 +322,7 @@ outsheet using "`input_dir'/`member_file_out'", ///
 * VARIABLE DONT LES VALEURS PRÉCHARGÉES SONT À PROTÉGER
 * nom du fichier = nom imuable attendu par le système: protected__variables
 use "`protected_vars'", clear
-outsheet using "`input_dir'/protected__variables.tab", noquote replace
+outsheet using "`output_dir'/protected__variables.tab", noquote replace
 
 /*-----------------------------------------------------------------------------
 Créer un fichier zip à importer dans Headquarters
