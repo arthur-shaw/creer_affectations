@@ -317,9 +317,10 @@ outsheet using "`output_dir'/`hhold_file_out'", ///
 * NIVEAU MEMBRES
 * nom du fichier = (premier) roster ID pour ce roster dans Designer
 use "`membres_roster'", clear
-outsheet using "`output_dir'/`member_file_out'", ///
+recode s01q01 s01q02 s01q03a s01q03b s01q03c preload_pid preload_sex preload_age preload_relation membres__id (.a = .)
+export delimited using "`output_dir'/`member_file_out'", ///
+    delimiter(tab) ///
     nolabel /// sauvegarder les valeurs, pas les étiquettes
-    noquote /// pas de guillemets pour les variables texte
     replace
 
 * VARIABLE DONT LES VALEURS PRÉCHARGÉES SONT À PROTÉGER
